@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>StockAnalysis</title>
+    <link rel="stylesheet" type="text/css" href="style.css?version=0.0.1" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="searchbar">
+          <input
+            class="search-txt"
+            type="text"
+            name=""
+            placeholder="Type to search"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"
+            />
+          </svg>
+        </div>
+        <ul id="primary-navbar" data-visible="false" class="primary-navbar">
+          <!-- Navbar -->
+          <li><a href="#Charts" class="Charts">Charts</a></li>
+          <li><a href="#Portfolio" class="Portfolio">Portfolio</a></li>
+          <li><a href="#Watchlist" class="Watchlist">Watchlist</a></li>
+        </ul>
+        <button
+          aria-controls="primary-navbar"
+          aria-expanded="false"
+          class="hamburger"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </header>
+    <section id="Market"></section>
+    <section id="Chart">
+      <div id="candlestickchart"></div>
+    </section>
+    <script src="app.js?version=0.0.1"></script>
+  </body>
+</html>
