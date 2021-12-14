@@ -1,0 +1,40 @@
+<p>stock-search works!</p>
+<!-- <mat-table [dataSource]="dataSource">
+    <ng-container *ngFor="let column of columns" *matColumnDef="{{column?.columnName}}">
+        <ng-container>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{column?.columnName}}</mat-header-cell>
+        </ng-container>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+</mat-table> -->
+
+<table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let row">{{row?.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Land</th>
+        <td mat-cell *matCellDef="let row">{{row?.country}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="market_capitalization">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Marktkapitalisierung</th>
+        <td mat-cell *matCellDef="let row">{{row?.market_capitalization}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="isin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ISIN</th>
+        <td mat-cell *matCellDef="let row">{{row?.isin}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+        <td mat-cell *matCellDef="let row">{{row?.symbol}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
