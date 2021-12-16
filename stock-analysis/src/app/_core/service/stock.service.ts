@@ -15,15 +15,13 @@ export class StockService {
         private http: HttpClient
     ) { }
 
-    requestStocks(): Observable<Array<IStock>> {
-        // let httpParams = new HttpParams();
+    requestStocks(filters: Map<string, string>): Observable<Array<IStock>> {
+        let httpParams = new HttpParams();
 
-        // httpParams = httpParams.append('name', 'Deutsche');
-        // httpParams = httpParams.append('country', 'DE');
-        // httpParams = httpParams.append('index', 1);
-        // httpParams = httpParams.append('sector', 40);
-
-        return this.http.get<Array<IStock>>(this.config.BASE_URL + this.URL_STOCK_BASE)
-        // return this.http.get<Array<IStock>>(this.config.BASE_URL + this.URL_STOCK_BASE, {params: httpParams})
+        for (let filter of filters.entries()) {
+            httpParams = httpParams.append(filter[0], filter[1]);
+        }
+        
+        return this.http.get<Array<IStock>>(this.config.BASE_URL + this.URL_STOCK_BASE, {params: httpParams})
     }
 }

@@ -15,7 +15,8 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./stock-search.component.less']
 })
 export class StockSearchComponent implements OnInit {
-    @Input() stockSearch!: string;
+    stockSearch!: string;
+    selectedFilter: Map<string, string> = new Map<string, string>();
 
     displayedColumns: string[] = ['name', 'country', 'market_capitalization', 'isin', 'symbol'];
     dataSource = new MatTableDataSource();
@@ -34,7 +35,41 @@ export class StockSearchComponent implements OnInit {
     sort: MatSort = new MatSort;
 
     ngOnInit(): void {
-        this.stockService.requestStocks().subscribe(
+        this.requstStockData(this.selectedFilter);
+
+        this.filterService.requestFilters().subscribe(
+            result => {
+                this.filters = result;
+            },
+            error => {
+
+            },
+            () => { }
+        );
+    }
+
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+
+        return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    }
+
+    onSubmit(event: any) {
+        this.dataSource.filter = event.target.stock.value;
+    }
+
+    setFilter(event: any) {
+        if (event.source.name == 'country') {
+            this.selectedFilter.set(event.source.name, event.value);
+        } else {
+            this.selectedFilter.set(event.source.name, "" + event.value);
+        }
+
+        this.requstStockData(this.selectedFilter);
+    }
+
+    requstStockData(filters: Map<string, string>): void {
+        this.stockService.requestStocks(filters).subscribe(
             result => {
                 this.dataSource.data = result;
 
@@ -65,30 +100,5 @@ export class StockSearchComponent implements OnInit {
             },
             () => { }
         );
-
-
-
-        this.filterService.requestFilters().subscribe(
-            result => {
-                this.filters = result;
-            },
-            error => {
-
-            },
-            () => { }
-        );
     }
-
-    private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
-
-        return this.options.filter(option => option.toLowerCase().includes(filterValue));
-    }
-
-    onSubmit(event: any) {
-        let temp = event.target.stock.value;
-        this.dataSource.filter = temp;
-
-        return temp;
-     }
 }
