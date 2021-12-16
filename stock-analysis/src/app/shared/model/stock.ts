@@ -2,10 +2,6 @@ import { ISector } from './sector'
 import { IExchange } from './exchange'
 import { IIndex } from './index'
 
-export interface IStockResponse {
-    stocks: Array<IStock>
-}
-
 export interface IStock {
     stock_id: number
     name: string
