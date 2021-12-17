@@ -19,9 +19,15 @@
             <p *ngIf="filter.name == 'index'">Index</p>
             <p *ngIf="filter.name == 'country'">Land</p>
             <mat-radio-group [name]="filter.name" (change)=setFilter($event)>
+            <!-- <mat-radio-group [(ngModel)]="selectedFilter.get(filter.name)" [name]="filter.name" (change)=setFilter($event)> -->
                 <mat-radio-button *ngFor="let option of filter.options" [value]="option.value">{{option.name}}
                 </mat-radio-button>
             </mat-radio-group>
+            <div class="filter-button-wrapper">
+                <button mat-mini-fab color="primary" (click)=resetFilter($event)>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </mat-card>
     </div>
     <div id="content">

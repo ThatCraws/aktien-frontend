@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 import { StockService } from 'src/app/_core/service/stock.service';
 
@@ -16,7 +17,15 @@ import { FormControl } from '@angular/forms';
 })
 export class StockSearchComponent implements OnInit {
     stockSearch!: string;
+    // selectedFilter: Map<string, string> = new Map<string, string>([
+    //    ['sector', ''],
+    //    ['index', ''],
+    //    ['country', ''],
+    // ]
+    // );
+
     selectedFilter: Map<string, string> = new Map<string, string>();
+    sector = null;
 
     displayedColumns: string[] = ['name', 'country', 'market_capitalization', 'isin', 'symbol'];
     dataSource = new MatTableDataSource();
@@ -100,5 +109,9 @@ export class StockSearchComponent implements OnInit {
             },
             () => { }
         );
+    }
+
+    resetFilter(event: any): void {
+        this.sector = null;
     }
 }
