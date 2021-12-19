@@ -1,35 +1,182 @@
-mat-toolbar {
-    height: 80px;
-    top: 0;
-    position: fixed;
-    background-color: grey;
-
-    mat-form-field {
-        width: 400px;
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background: none;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  z-index: 1000;
+  display: flex;
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    mat-toolbar {
+      color: none;
+      left: 25%;
+      width: 50vw;
+      position: relative;
+      background: var(--buttonsearch);
+      height: 40px;
+      border-radius: 40px;
+      padding: 10px;
+      mat-form-field {
+        float: left;
+        padding: 0;
+        font-size: 16px;
+        width: 48vw;
+      }
     }
+    mat-toolbar svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--lense);
+      float: right;
+      justify-content: flex-start;
+    }
+    .hamburger {
+      margin-left: auto;
+      margin-right: 20px;
+      position: relative;
+      width: 40px;
+      height: 32px;
+      border: 0;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+  }
+}
+.rectangle {
+  position: absolute;
+  height: 4px;
+  background: var(--buttonsearch);
+  border-radius: 2px;
+  transition: transform 0.65s;
+}
+.rectangle--small {
+  width: 20px;
+}
+.top {
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+.hamburger[aria-expanded="true"] .top {
+  background: var(--redButton);
+  transform: translateX(6.8px) rotate(45deg);
+}
+.mid {
+  top: 50%;
+  left: 0;
+  width: 40px;
+  transform: translatey(-50%);
+}
+.hamburger[aria-expanded="true"] .mid {
+  background: var(--redButton);
+  transform: translatey(-50%) rotate(-45deg);
+}
+.bottom {
+  bottom: 0;
+  right: 0;
+  transform-origin: bottom right;
+}
+.hamburger[aria-expanded="true"] .bottom {
+  background: var(--redButton);
+  transform: translateX(-6.8px) rotate(45deg);
+}
+header nav .primary-navbar {
+  display: none;
+}
+header nav ul li {
+  margin: 0 0 2rem;
+  list-style: none;
+  margin-left: 1rem;
+}
+header nav ul li a {
+  height: auto;
+  justify-content: flex-end;
+  font-weight: 600;
+  font-size: 2rem;
+  text-decoration: none;
+  padding: 6px, 15px;
+  color: var(--text);
+  border-radius: 20px;
+  transition: color 0.5s ease-out;
+}
+header nav .primary-navbar[data-visible="true"] {
+  padding: 0;
+  margin: 0;
+  display: block;
+  position: fixed;
+  inset: 0 0 0 75%;
+  flex-direction: column;
+  text-align: right;
+  align-items: flex-start;
+  padding: 10rem 2rem 2rem;
+  background: hsl(0 0% 100% / 0.1);
+  overflow: hidden;
+}
+.content-wrapper {
+  padding: 85px 5px 5px 5px;
+  mat-radio-button {
+    display: block;
+    padding: 5px 0 5px 0;
+  }
+
+  #left-sidebar {
+    display: block;
+    float: left;
+    mat-card {
+      display: block;
+      margin: 5px 0 5px 0;
+      margin-left: 1vw;
+      background: var(--secondBackground);
+      p {
+        color: var(--text);
+      }
+      mat-radio-button {
+        color: var(--text);
+      }
+    }
+  }
+
+  #content {
+    float: right;
+    display: block;
+    padding: 5px 20px 5px 20px;
+    margin: auto;
+    width: 66%;
+    table {
+      background: var(--secondBackground);
+      .mat-cell {
+        color: var(--text);
+      }
+      .mat-header-cell {
+        color: var(--text);
+      }
+    }
+  }
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: var(--accentcolor) !important;
 }
 
-.content-wrapper {
-    padding: 85px 5px 5px 5px;
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: var(--accentcolor) !important; /*inner circle color change*/
+}
 
-    mat-radio-button {
-        display: block;
-        padding: 5px 0 5px 0;
-    }
-
-    #left-sidebar {
-        display: block;
-        float: left;
-
-        mat-card {
-            display: block;
-            margin: 5px 0 5px 0;
-        }
-    }
-
-    #content {
-        display: block;
-        float: left;
-        padding: 5px 20px 5px 20px;
-    }
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: var(--accentcolor) !important; /*outer ring color change*/
+}
+::ng-deep.mat-radio-button .mat-radio-outer-circle {
+  border-color: var(--text) !important; /*outer ring color change*/
 }
