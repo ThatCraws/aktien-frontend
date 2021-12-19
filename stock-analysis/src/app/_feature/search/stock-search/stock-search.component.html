@@ -59,12 +59,18 @@
       <p *ngIf="filter.name == 'index'">Index</p>
       <p *ngIf="filter.name == 'country'">Land</p>
       <mat-radio-group [name]="filter.name" (change)="setFilter($event)">
+        <!-- <mat-radio-group [(ngModel)]="selectedFilter.get(filter.name)" [name]="filter.name" (change)=setFilter($event)> -->
         <mat-radio-button
           *ngFor="let option of filter.options"
           [value]="option.value"
           >{{ option.name }}
         </mat-radio-button>
       </mat-radio-group>
+      <div class="filter-button-wrapper">
+        <button mat-mini-fab color="primary" (click)="resetFilter($event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </mat-card>
   </div>
   <div id="content">
@@ -74,31 +80,6 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let row">{{ row?.name }}</td>
       </ng-container>
-    <div id="left-sidebar">
-        <mat-card *ngFor="let filter of filters" class="mat-elevation-z8">
-            <p *ngIf="filter.name == 'sector'">Branche</p>
-            <p *ngIf="filter.name == 'exchange'">Börse</p>
-            <p *ngIf="filter.name == 'index'">Index</p>
-            <p *ngIf="filter.name == 'country'">Land</p>
-            <mat-radio-group [name]="filter.name" (change)=setFilter($event)>
-            <!-- <mat-radio-group [(ngModel)]="selectedFilter.get(filter.name)" [name]="filter.name" (change)=setFilter($event)> -->
-                <mat-radio-button *ngFor="let option of filter.options" [value]="option.value">{{option.name}}
-                </mat-radio-button>
-            </mat-radio-group>
-            <div class="filter-button-wrapper">
-                <button mat-mini-fab color="primary" (click)=resetFilter($event)>
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-        </mat-card>
-    </div>
-    <div id="content">
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                <td mat-cell *matCellDef="let row">{{row?.name}}</td>
-            </ng-container>
 
       <!-- Country Column -->
       <ng-container matColumnDef="country">
