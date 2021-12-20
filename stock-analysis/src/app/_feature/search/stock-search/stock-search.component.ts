@@ -9,6 +9,7 @@ import { IFilter } from 'src/app/shared/model/filter';
 import { FilterService } from 'src/app/_core/service/filter.service';
 import { Observable, startWith, map } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-stock-search',
@@ -42,6 +43,9 @@ export class StockSearchComponent implements OnInit {
 
     @ViewChild(MatSort)
     sort: MatSort = new MatSort;
+
+    @ViewChild(MatPaginator)
+    paginator!: MatPaginator;
 
     ngOnInit(): void {
         this.requstStockData(this.selectedFilter);
@@ -113,5 +117,19 @@ export class StockSearchComponent implements OnInit {
 
     resetFilter(event: any): void {
         this.sector = null;
+    }
+
+    navToggle(): void {
+        const primaryNav = document.querySelector(".primary-navbar");
+        const nav = document.querySelector(".hamburger");
+        let visibility = primaryNav!.getAttribute("data-visible");
+        if (visibility == "false"){
+          primaryNav!.setAttribute("data-visible", "true");
+          nav!.setAttribute("aria-expanded", "true");
+        }
+        else {
+          primaryNav!.setAttribute("data-visible", "false");
+          nav!.setAttribute("aria-expanded", "false");
+        }
     }
 }
