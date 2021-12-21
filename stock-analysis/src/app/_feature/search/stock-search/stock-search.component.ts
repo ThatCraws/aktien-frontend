@@ -127,12 +127,12 @@ export class StockSearchComponent implements OnInit {
         const nav = document.querySelector(".hamburger");
         let visibility = primaryNav!.getAttribute("data-visible");
         if (visibility == "false"){
-          primaryNav!.setAttribute("data-visible", "true");
-          nav!.setAttribute("aria-expanded", "true");
+            primaryNav!.setAttribute("data-visible", "true");
+            nav!.setAttribute("aria-expanded", "true");
         }
         else {
-          primaryNav!.setAttribute("data-visible", "false");
-          nav!.setAttribute("aria-expanded", "false");
+            primaryNav!.setAttribute("data-visible", "false");
+            nav!.setAttribute("aria-expanded", "false");
         }
     }
 }

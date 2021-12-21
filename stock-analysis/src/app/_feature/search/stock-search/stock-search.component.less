@@ -160,7 +160,7 @@ header nav .primary-navbar[data-visible="true"] {
     display: block;
     padding: 5px 20px 5px 20px;
     margin: auto;
-    width: 66%;
+    margin-right: 35vw;
     table {
       background: var(--secondBackground);
       .mat-cell {
@@ -168,11 +168,27 @@ header nav .primary-navbar[data-visible="true"] {
       }
       .mat-header-cell {
         color: var(--text);
+        font-size: 0.9rem;
+      }
+      .mat-column-name {
+        width: 10vw;
+      }
+      .mat-column-country {
+        text-align: center;
+      }
+      .mat-column-market_capitalization {
+        text-align: center;
+      }
+      .mat-column-isin {
+        text-align: center;
+      }
+      .mat-column-symbol {
+        text-align: center;
       }
     }
     mat-paginator {
       background: var(--secondBackground);
-      width: 45%;
+      color: var(--text);
     }
   }
 }
@@ -181,13 +197,13 @@ header nav .primary-navbar[data-visible="true"] {
 }
 
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: var(--accentcolor) !important; /*inner circle color change*/
+  background-color: var(--accentcolor) !important;
 }
 
 ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked
   .mat-radio-outer-circle {
-  border-color: var(--accentcolor) !important; /*outer ring color change*/
+  border-color: var(--accentcolor) !important;
 }
 ::ng-deep.mat-radio-button .mat-radio-outer-circle {
-  border-color: var(--text) !important; /*outer ring color change*/
+  border-color: var(--text) !important;
 }
