@@ -24,7 +24,6 @@ export class StockSearchComponent implements OnInit {
     //    ['country', ''],
     // ]
     // );
-
     selectedFilter: Map<string, string> = new Map<string, string>();
     sector = null;
 
@@ -59,6 +58,10 @@ export class StockSearchComponent implements OnInit {
             },
             () => { }
         );
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
     }
 
     private _filter(value: string): string[] {

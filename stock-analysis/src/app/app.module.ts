@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -43,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatCardModule,
         MatRadioModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatPaginatorModule
     ],
     providers: [],
     bootstrap: [AppComponent]
