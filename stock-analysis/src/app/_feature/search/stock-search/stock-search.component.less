@@ -134,9 +134,11 @@ header nav .primary-navbar[data-visible="true"] {
   #left-sidebar {
     display: block;
     float: left;
+    width: 25vw;
     mat-card {
       height: 27vh;
-      overflow: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
       display: block;
       margin: 5px 0 5px 0;
       margin-left: 1vw;
@@ -161,9 +163,9 @@ header nav .primary-navbar[data-visible="true"] {
     float: right;
     display: block;
     padding: 5px 20px 5px 20px;
-    margin: auto;
-    margin-right: 20vw;
+    margin-right: 28vw;
     table {
+      width: 40vw;
       background: var(--secondBackground);
       .mat-cell {
         color: var(--text);
