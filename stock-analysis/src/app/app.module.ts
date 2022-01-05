@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
 
 import { MatTableModule } from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort';
@@ -47,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatRadioModule,
         MatButtonModule,
         MatIconModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgChartsModule
     ],
     providers: [
         {

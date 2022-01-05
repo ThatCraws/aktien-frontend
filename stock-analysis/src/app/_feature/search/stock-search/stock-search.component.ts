@@ -10,6 +10,7 @@ import { FilterService } from 'src/app/_core/service/filter.service';
 import { Observable, startWith, map } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-stock-search',
@@ -37,7 +38,8 @@ export class StockSearchComponent implements OnInit {
 
     constructor(
         private stockService: StockService,
-        private filterService: FilterService
+        private filterService: FilterService,
+        private router: Router
     ) { }
 
     @ViewChild(MatSort)
@@ -134,5 +136,10 @@ export class StockSearchComponent implements OnInit {
             primaryNav!.setAttribute("data-visible", "false");
             nav!.setAttribute("aria-expanded", "false");
         }
+    }
+
+    getRecord(row: any): void {
+        // console.log(row);
+        this.router.navigate(['/stock-detail/' + row.stock_id]);
     }
 }

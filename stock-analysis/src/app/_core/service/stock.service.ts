@@ -24,4 +24,8 @@ export class StockService {
         
         return this.http.get<Array<IStock>>(this.config.BASE_URL + this.URL_STOCK_BASE, {params: httpParams})
     }
+
+    requestStock(stockId: any): Observable<IStock> {
+        return this.http.get<IStock>(this.config.BASE_URL + this.URL_STOCK_BASE + stockId)
+    }
 }
