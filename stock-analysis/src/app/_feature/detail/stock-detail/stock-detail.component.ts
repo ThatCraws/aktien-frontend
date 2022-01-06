@@ -8,8 +8,9 @@ import 'chartjs-chart-financial';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { enUS } from 'date-fns/locale';
-import { add, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { CandlestickController, CandlestickElement, OhlcController, OhlcElement } from 'chartjs-chart-financial';
+import { IGraph } from 'src/app/shared/model/graph';
 
 @Component({
   selector: 'app-stock-detail',
@@ -17,56 +18,47 @@ import { CandlestickController, CandlestickElement, OhlcController, OhlcElement 
   styleUrls: ['./stock-detail.component.less']
 })
 export class StockDetailComponent implements OnInit {
-    stockId: string | null = null;
+  stockName: string = '';
+  stockId: string | null = null;
 
-    barCount = 60;
-    initialDateStr = '2017-04-01T00:00:00';
-
-    constructor(
-        private stockService: StockService,
-        private route: ActivatedRoute
-    ) {
-        Chart.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
-    }
-
+  constructor(
+    private stockService: StockService,
+    private route: ActivatedRoute
+  ) {
+    Chart.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(
         paramMap => {
-            this.stockId = paramMap.get('stock_id');
+          this.stockId = paramMap.get('stock_id');
         }
     )
-
     this.stockService.requestStock(this.stockId).subscribe(
         result => {
-            let test = "hallo";
+          let test = "hallo"
+          
+          for (let i=0; i < result.data.length; i++){
+            result.data[i].x = parseISO(result.data[i].x);
+          }
+
+          this.financialChartData = {
+            datasets: [ {
+              label: result.name,
+              data: result.data,
+            } ]
+          };
         },
         error => {
-            null
+          null
         },
-        () => { }
+        () => {},
     );
   }
 
-//   public financialChartData: ChartConfiguration['data'] = {
-//     datasets: [ {
-//       label: 'CHRT - Chart.js Corporation',
-//     //   data: this.getRandomData(this.initialDateStr, this.barCount)
-//       data:  [
-//         {
-//           x: +parseISO(this.initialDateStr),
-//           o: 1,
-//           h: 1.5,
-//           l: 0.75,
-//           c: 1.25,
-//         },
-//     ]
-//     } ]
-//   };
-
   public financialChartData: ChartConfiguration['data'] = {
     datasets: [ {
-      label: 'CHRT - Chart.js Corporation',
-      data: this.getRandomData(this.initialDateStr, this.barCount)
+      label: '',
+      data: []
     } ]
   };
 
@@ -104,36 +96,6 @@ export class StockDetailComponent implements OnInit {
   public financialChartPlugins = [];
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  randomNumber(min: number, max: number): number {
-    return Math.random() * (max - min) + min;
-  }
-
-  randomBar(date: Date, lastClose: number): { c: number; x: number; h: number; l: number; o: number } {
-    const open = this.randomNumber(lastClose * 0.95, lastClose * 1.05);
-    const close = this.randomNumber(open * 0.95, open * 1.05);
-    const high = this.randomNumber(Math.max(open, close), Math.max(open, close) * 1.1);
-    const low = this.randomNumber(Math.min(open, close) * 0.9, Math.min(open, close));
-    return {
-      x: +date,
-      o: open,
-      h: high,
-      l: low,
-      c: close
-    };
-  }
-
-  getRandomData(dateStr: string, count: number): { c: number; x: number; h: number; l: number; o: number }[] {
-    let date = parseISO(dateStr);
-    const data = [ this.randomBar(date, 30) ];
-    while (data.length < count) {
-      date = add(date, { days: 1 });
-      if (date.getDay() <= 5) {
-        data.push(this.randomBar(date, data[data.length - 1].c));
-      }
-    }
-    return data;
-  }
 
   update(): void {
     // candlestick vs ohlc

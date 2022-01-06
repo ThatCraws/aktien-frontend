@@ -26,6 +26,10 @@ export class StockService {
     }
 
     requestStock(stockId: any): Observable<IStock> {
-        return this.http.get<IStock>(this.config.BASE_URL + this.URL_STOCK_BASE + stockId)
+        let httpParams = new HttpParams();
+
+        httpParams = httpParams.append('period','1mo');
+        httpParams = httpParams.append('interval','1d');
+        return this.http.get<IStock>(this.config.BASE_URL + this.URL_STOCK_BASE + stockId, {params: httpParams})
     }
 }
