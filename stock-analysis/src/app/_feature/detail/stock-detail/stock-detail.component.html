@@ -1,10 +1,16 @@
-<div class="chart">
-  <canvas
-    baseChart
-    [data]="financialChartData"
-    [options]="financialChartOptions"
-    [type]="financialChartType"
-    [plugins]="financialChartPlugins"
-  >
-  </canvas>
+<div class="overview">
+  <div class="chart">
+    <canvas
+      baseChart
+      [data]="financialChartData"
+      [options]="financialChartOptions"
+      [type]="financialChartType"
+      [plugins]="financialChartPlugins"
+    >
+    </canvas>
+  </div>
+  <div class="infos">
+    <p>VOLATILITY:</p>
+    <p>RSI:</p>
+  </div>
 </div>

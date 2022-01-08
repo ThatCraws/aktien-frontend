@@ -35,7 +35,6 @@ export class StockDetailComponent implements OnInit {
     )
     this.stockService.requestStock(this.stockId).subscribe(
         result => {
-          let test = "hallo"
           
           for (let i=0; i < result.data.length; i++){
             result.data[i].x = parseISO(result.data[i].x);
