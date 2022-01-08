@@ -62,8 +62,16 @@
       <p *ngIf="filter.name == 'exchange'">Börse</p>
       <p *ngIf="filter.name == 'index'">Index</p>
       <p *ngIf="filter.name == 'country'">Land</p>
-      <mat-radio-group [name]="filter.name" (change)="setFilter($event)">
-        <!-- <mat-radio-group [(ngModel)]="selectedFilter.get(filter.name)" [name]="filter.name" (change)=setFilter($event)> -->
+      <mat-radio-group
+        [name]="filter.name"
+        [value]="selectedFilter.get(filter.name)"
+        (change)="setFilter($event)"
+      >
+        <!-- <mat-radio-group
+        [ngModel]="selectedFilter.get(filter.name)"
+        [name]="filter.name"
+        (change)="setFilter($event)"
+      > -->
         <mat-radio-button
           *ngFor="let option of filter.options"
           [value]="option.value"
@@ -71,7 +79,11 @@
         </mat-radio-button>
       </mat-radio-group>
       <div class="filter-button-wrapper">
-        <button mat-mini-fab color="primary" (click)="resetFilter($event)">
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="resetFilter($event, filter.name)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </div>

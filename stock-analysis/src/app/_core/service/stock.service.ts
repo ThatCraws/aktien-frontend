@@ -15,10 +15,11 @@ export class StockService {
         private http: HttpClient
     ) { }
 
-    requestStocks(filters: Map<string, string>): Observable<Array<IStock>> {
+    requestStocks(filters: Map<string, string | null>): Observable<Array<IStock>> {
         let httpParams = new HttpParams();
 
         for (let filter of filters.entries()) {
+            if(!filter[1]) continue;
             httpParams = httpParams.append(filter[0], filter[1]);
         }
         

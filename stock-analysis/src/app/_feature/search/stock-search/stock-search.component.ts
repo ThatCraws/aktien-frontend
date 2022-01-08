@@ -25,7 +25,7 @@ export class StockSearchComponent implements OnInit {
     //    ['country', ''],
     // ]
     // );
-    selectedFilter: Map<string, string> = new Map<string, string>();
+    selectedFilter: Map<string, string | null> = new Map<string, string | null>();
     sector = null;
 
     displayedColumns: string[] = ['name', 'country', 'market_capitalization', 'isin', 'symbol'];
@@ -86,7 +86,7 @@ export class StockSearchComponent implements OnInit {
         this.requstStockData(this.selectedFilter);
     }
 
-    requstStockData(filters: Map<string, string>): void {
+    requstStockData(filters: Map<string, string | null>): void {
         this.stockService.requestStocks(filters).subscribe(
             result => {
                 this.dataSource.data = result;
@@ -120,8 +120,12 @@ export class StockSearchComponent implements OnInit {
         );
     }
 
-    resetFilter(event: any): void {
-        this.sector = null;
+    resetFilter(event: Event, filtername: string): void {
+        event.stopPropagation();
+        event.preventDefault();
+
+        this.selectedFilter.set(filtername, null);
+        this.requstStockData(this.selectedFilter);
     }
 
     navToggle(): void {
