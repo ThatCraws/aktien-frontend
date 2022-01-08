@@ -19,7 +19,7 @@ import { IGraph } from 'src/app/shared/model/graph';
 })
 export class StockDetailComponent implements OnInit {
   stockName: string = '';
-  rsi: string = "";
+  rsi: string = '';
   stockId: string | null = null;
   volatility: string = '';
 
@@ -86,12 +86,10 @@ export class StockDetailComponent implements OnInit {
     }
   };
 
-//   public financialChartOptions: ChartConfiguration['options'] = {};
-
   public financialChartColors = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: '',
+      backgroundColor: '',
     },
   ];
 
