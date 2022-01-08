@@ -120,11 +120,10 @@ export class StockSearchComponent implements OnInit {
         );
     }
 
-    resetFilter(event: Event, filtername: string): void {
+    resetFilter(event: Event, filterName: string): void {
         event.stopPropagation();
         event.preventDefault();
-
-        this.selectedFilter.set(filtername, null);
+        this.selectedFilter.set(filterName, null);
         this.requstStockData(this.selectedFilter);
     }
 

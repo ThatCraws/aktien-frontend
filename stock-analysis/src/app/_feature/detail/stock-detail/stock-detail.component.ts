@@ -19,7 +19,9 @@ import { IGraph } from 'src/app/shared/model/graph';
 })
 export class StockDetailComponent implements OnInit {
   stockName: string = '';
+  rsi: string = "";
   stockId: string | null = null;
+  volatility: string = '';
 
   constructor(
     private stockService: StockService,
@@ -35,6 +37,9 @@ export class StockDetailComponent implements OnInit {
     )
     this.stockService.requestStock(this.stockId).subscribe(
         result => {
+
+          this.rsi = result.rsi;
+          this.volatility = result.historicalVolatility;
           
           for (let i=0; i < result.data.length; i++){
             result.data[i].x = parseISO(result.data[i].x);
@@ -99,5 +104,19 @@ export class StockDetailComponent implements OnInit {
   update(): void {
     // candlestick vs ohlc
     this.financialChartType = this.financialChartType === 'candlestick' ? 'ohlc' : 'candlestick';
+  }
+
+  navToggle(): void {
+    const primaryNav = document.querySelector(".primary-navbar");
+    const nav = document.querySelector(".hamburger");
+    let visibility = primaryNav!.getAttribute("data-visible");
+    if (visibility == "false"){
+        primaryNav!.setAttribute("data-visible", "true");
+        nav!.setAttribute("aria-expanded", "true");
+    }
+    else {
+        primaryNav!.setAttribute("data-visible", "false");
+        nav!.setAttribute("aria-expanded", "false");
+    }
   }
 }

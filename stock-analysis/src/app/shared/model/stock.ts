@@ -14,4 +14,6 @@ export interface IStock {
     exchanges: Array<IExchange>
     indices: Array<IIndex>
     data: Array<any>
+    historicalVolatility: string
+    rsi: string
 }

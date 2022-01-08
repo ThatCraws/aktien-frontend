@@ -1,16 +1,40 @@
-<div class="overview">
-  <div class="chart">
-    <canvas
-      baseChart
-      [data]="financialChartData"
-      [options]="financialChartOptions"
-      [type]="financialChartType"
-      [plugins]="financialChartPlugins"
+<header>
+  <!-- Navbar -->
+  <nav>
+    <!-- Hamburger -->
+    <button
+      (click)="navToggle()"
+      aria-controls="primary-navbar"
+      aria-expanded="false"
+      class="hamburger"
     >
-    </canvas>
+      <span class="rectangle top rectangle--small"></span>
+      <span class="rectangle mid"></span>
+      <span class="rectangle bottom rectangle--small"></span>
+    </button>
+    <!-- Menu -->
+    <ul id="primary-navbar" data-visible="false" class="primary-navbar">
+      <li><a href="/" class="Charts">Aktienübersicht</a></li>
+      <li><a href="#Portfolio" class="Portfolio">Portfolio</a></li>
+      <li><a href="#Watchlist" class="Watchlist">Watchlist</a></li>
+    </ul>
+  </nav>
+</header>
+<body>
+  <div class="overview">
+    <div class="chart">
+      <canvas
+        baseChart
+        [data]="financialChartData"
+        [options]="financialChartOptions"
+        [type]="financialChartType"
+        [plugins]="financialChartPlugins"
+      >
+      </canvas>
+    </div>
+    <div class="infos">
+      <p>Volatilty: {{ volatility }}</p>
+      <p>RSI: {{ rsi }}</p>
+    </div>
   </div>
-  <div class="infos">
-    <p>VOLATILITY:</p>
-    <p>RSI:</p>
-  </div>
-</div>
+</body>
