@@ -67,6 +67,7 @@ export class StockDetailComponent implements OnInit {
   };
 
   public financialChartOptions: ChartConfiguration['options'] = {
+    color: '#5f7e97',
     responsive: true,
     maintainAspectRatio: false,
     scales: {
