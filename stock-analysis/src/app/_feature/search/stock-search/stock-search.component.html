@@ -3,7 +3,7 @@
   <nav>
     <!-- Searchbar -->
     <mat-toolbar class="mat-elevation-z8">
-      <form (ngSubmit)="onSubmit($event)">
+      <form [formGroup]="myForm">
         <mat-form-field class="example-full-width" appearance="fill">
           <input
             type="text"

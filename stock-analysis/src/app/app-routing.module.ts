@@ -4,14 +4,14 @@ import { StockSearchComponent } from './_feature/search/stock-search/stock-searc
 import { StockDetailComponent } from './_feature/detail/stock-detail/stock-detail.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: StockSearchComponent
-    },
-    {
-        path: 'stock-detail/:stock_id',
-        component: StockDetailComponent
-    }
+  {
+    path: '',
+    component: StockSearchComponent
+  },
+  {
+    path: 'stock-detail/:stock_id',
+    component: StockDetailComponent
+  }
 ];
 
 @NgModule({

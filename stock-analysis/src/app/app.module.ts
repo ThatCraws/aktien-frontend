@@ -25,37 +25,37 @@ import { StockDetailComponent } from './_feature/detail/stock-detail/stock-detai
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        StockSearchComponent,
-        StockDetailComponent,
-        PaginatorInternationalizationComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatSortModule,
-        MatToolbarModule,
-        MatFormFieldModule,
-        MatAutocompleteModule,
-        MatInputModule,
-        MatCardModule,
-        MatRadioModule,
-        MatButtonModule,
-        MatIconModule,
-        MatPaginatorModule,
-        NgChartsModule
-    ],
-    providers: [
-        {
-            provide: MatPaginatorIntl, useClass: PaginatorInternationalization
-        }
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    StockSearchComponent,
+    StockDetailComponent,
+    PaginatorInternationalizationComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatCardModule,
+    MatRadioModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    NgChartsModule
+  ],
+  providers: [
+    {
+      provide: MatPaginatorIntl, useClass: PaginatorInternationalization
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

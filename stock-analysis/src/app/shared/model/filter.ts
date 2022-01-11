@@ -1,9 +1,9 @@
 export interface IFilter {
-    name: string
-    options: Array<IOption>
+  name: string
+  options: Array<IOption>
 }
 
 export interface IOption {
-    name: string
-    value: number | string
+  name: string
+  value: number | string
 }
