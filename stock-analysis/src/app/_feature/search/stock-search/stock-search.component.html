@@ -3,9 +3,10 @@
   <nav>
     <!-- Searchbar -->
     <mat-toolbar class="mat-elevation-z8">
-      <form [formGroup]="myForm">
+      <form>
         <mat-form-field class="example-full-width" appearance="fill">
           <input
+            (keyup)="onChange($event)"
             type="text"
             name="stock"
             placeholder="Geben Sie einen Aktiennamen ein ..."
@@ -16,6 +17,7 @@
           />
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option
+              (click)="onClickAutocomplete($event)"
               *ngFor="let option of filteredOptions | async"
               [value]="option"
             >

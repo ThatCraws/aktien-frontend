@@ -46,9 +46,6 @@ export class StockSearchComponent implements OnInit {
   paginator!: MatPaginator;
 
   ngOnInit(): void {
-    this.myForm = this.formBuilder.group({
-      stock: ''
-    })
 
     this.requstStockData(this.selectedFilter);
 
@@ -61,10 +58,6 @@ export class StockSearchComponent implements OnInit {
       },
       () => { }
     );
-
-    this.myForm.valueChanges.pipe()
-    .subscribe(
-      this.onChange)
     }
 
   ngAfterViewInit() {
@@ -77,8 +70,12 @@ export class StockSearchComponent implements OnInit {
       return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  onChange() {
-    this.dataSource.filter = this.myForm.value;
+  onChange(event: any) {
+    this.dataSource.filter = event.target.value;
+  }
+
+  onClickAutocomplete(event: any) {
+    this.dataSource.filter = event.target.textContent.trim();
   }
 
   setFilter(event: any) {
@@ -113,7 +110,7 @@ export class StockSearchComponent implements OnInit {
       this.sort.active = sortState.active;
       this.sort.direction = sortState.direction;
 
-      this.dataSource.filterPredicate = (data: any, filter: string) => data.name.indexOf(filter) != -1;
+      this.dataSource.filterPredicate = (data: any, filter: string) => data.name.toLowerCase().indexOf(filter.toLocaleLowerCase()) != -1;
       this.dataSource.filter = '';
 
       this.sort.sortChange.emit(sortState);
