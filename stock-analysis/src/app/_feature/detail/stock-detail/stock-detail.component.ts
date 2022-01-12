@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
 
 import { StockService } from 'src/app/_core/service/stock.service';
 
@@ -20,6 +22,12 @@ import { IGraph } from 'src/app/shared/model/graph';
   styleUrls: ['./stock-detail.component.less']
 })
 export class StockDetailComponent implements OnInit {
+  // Progressbar
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50;
+  loading = true;
+
   CandleLine: string = "Wechsel zu Linienchart";
   price: number = 0;
   marketcap: number = 0;
@@ -81,6 +89,8 @@ export class StockDetailComponent implements OnInit {
           }],
           labels: dataLineLabels
         };
+
+        this.loading = false;
       },
       error => {
         null

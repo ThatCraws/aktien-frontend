@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,9 +14,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-import { PaginatorInternationalizationComponent, PaginatorInternationalization } from './shared/model/paginator/paginator-internationalization';
-
+import {
+  MatPaginatorModule,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {
+  PaginatorInternationalizationComponent,
+  PaginatorInternationalization,
+} from './shared/model/paginator/paginator-internationalization';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     StockSearchComponent,
     StockDetailComponent,
-    PaginatorInternationalizationComponent
+    PaginatorInternationalizationComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,13 +55,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
-    NgChartsModule
+    MatProgressSpinnerModule,
+    NgChartsModule,
   ],
   providers: [
     {
-      provide: MatPaginatorIntl, useClass: PaginatorInternationalization
-    }
+      provide: MatPaginatorIntl,
+      useClass: PaginatorInternationalization,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
