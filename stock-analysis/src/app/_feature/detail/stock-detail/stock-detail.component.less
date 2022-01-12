@@ -103,14 +103,24 @@ body {
     width: 100vw;
     height: 100vh;
     padding: 10vh 3vw 10vh 3vw;
-    .chart {
-      padding: 1rem 1rem 1rem 1rem;
+    .chartOverview {
+      display: flex;
+      position: absolute;
       width: 70vw;
       height: 80vh;
-      position: absolute;
       border-radius: 10px;
       float: left;
       background-color: var(--secondBackground);
+      flex-direction: column;
+      .chart {
+        padding: 1rem 1rem 1rem 1rem;
+        width: 70vw;
+        height: 70vh;
+      }
+    }
+    button {
+      color: var(--text);
+      border-radius: 10px;
     }
     .infos {
       padding: 1rem 1rem 1rem 1rem;

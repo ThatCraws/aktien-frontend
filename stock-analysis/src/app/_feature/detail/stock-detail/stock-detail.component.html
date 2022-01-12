@@ -23,20 +23,34 @@
 <body>
   <div class="overview">
     <!-- Chart -->
-    <div class="chart">
-      <canvas
-        baseChart
-        [data]="financialChartData"
-        [options]="financialChartOptions"
-        [type]="financialChartType"
-        [plugins]="financialChartPlugins"
-      >
-      </canvas>
+    <div class="chartOverview">
+      <div class="chart">
+        <canvas
+          *ngIf="chartType == 'financialChart'"
+          baseChart
+          [data]="financialChartData"
+          [options]="financialChartOptions"
+          [type]="financialChartType"
+          [plugins]="financialChartPlugins"
+        >
+        </canvas>
+        <canvas
+          *ngIf="chartType == 'lineChart'"
+          baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="lineChartType"
+        >
+        </canvas>
+      </div>
+      <button mat-button (click)="update()">{{ CandleLine }}</button>
     </div>
     <!-- Infos -->
     <div class="infos">
-      <p>Volatilty: {{ volatility }}</p>
+      <p>Preis: {{ price }} $</p>
+      <p>Volatilty: {{ volatility }} %</p>
       <p>RSI: {{ rsi }}</p>
+      <p>Marktkapitalisierung: {{ marketcap | number: "":"de" }} $</p>
     </div>
   </div>
 </body>
