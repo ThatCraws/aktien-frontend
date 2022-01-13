@@ -36,6 +36,7 @@ jobs:
                 mkdir -p /home/runner/.ssh
                 ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
                 echo "${{ secrets.SSH_KEY }}" >> actions_key
+                ls -a
                 chmod 600 actions_key
                 ssh-agent -a /tmp/ssh_agent.sock > /dev/null
                 ssh-add actions_key
