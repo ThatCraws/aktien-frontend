@@ -102,7 +102,7 @@
               Marktkapitalisierung
             </th>
             <td mat-cell *matCellDef="let row">
-              {{ row?.market_capitalization }}
+              €{{ row?.market_capitalization | number: "":"de" }} Mio
             </td>
           </ng-container>
           <!-- ISIN Column -->

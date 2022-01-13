@@ -11,6 +11,8 @@ import { Observable, startWith, map, debounceTime, pipe} from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import localeDE from '@angular/common/locales/de';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-stock-search',
@@ -46,6 +48,7 @@ export class StockSearchComponent implements OnInit {
   paginator!: MatPaginator;
 
   ngOnInit(): void {
+    registerLocaleData(localeDE);
 
     this.requstStockData(this.selectedFilter);
 
