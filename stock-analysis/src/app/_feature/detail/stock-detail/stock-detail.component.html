@@ -62,10 +62,10 @@
         [value]="value"
       ></mat-progress-spinner>
       <div *ngIf="!loading">
-        <p>Preis: {{ price }} $</p>
+        <p>Preis: ${{ price }}</p>
         <p>Volatilty: {{ volatility }} %</p>
         <p>RSI: {{ rsi }}</p>
-        <p>Marktkapitalisierung: {{ marketcap | number: "":"de" }} $</p>
+        <p>Marktkapitalisierung: ${{ marketcap | number: "":"de" }}</p>
       </div>
     </div>
   </div>
