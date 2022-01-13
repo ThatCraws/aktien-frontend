@@ -35,11 +35,11 @@ jobs:
         run: |
                 mkdir -p /home/runner/.ssh
                 ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
-                echo "${{ secrets.SSH_KEY }}" >> actions_key 
-                chmod 600 actions_key
+                echo "${{ secrets.SSH_KEY }}" >> /home/runner/.ssh/actions_key 
+                chmod 600 /home/runner/.ssh/actions_key
                 eval "$(ssh-agent -s)"
-                ssh-add actions_key
+                ssh-add /home/runner/.ssh/actions_key
 
       - name: Trigger deploy-script
-        run: ssh -i actions_key craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
+        run: ssh craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
 
