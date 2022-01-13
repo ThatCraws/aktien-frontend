@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - main
+      - develop
+      - julien-deploy-action
+  pull_request:
+    branches: 
+      - main
+      - develop
+      - julien-deploy-action
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Add Deployment Server to known_hosts
+        run: ssh-keyscan alkaid.ubserspace.de
+        
+        
+        run: |
+                mkdir -p /home/runner/.ssh
+                ssh-keyscan alkaid.uberspace.de >> /home/runnder/.ssh/konwn_hosts
+                echo "${{ secrets.SSH_KEY }}" >> /home/runner/.ssh/actions_key
+                chmod 600 /home/runner/.ssh/actions_key
+                ssh-agent -a 
+                ssh-agent -a /tmp/ss_agent.sock > /dev/null
+                ssh-add /home/runner/.ssh/actions_key
+
+      - name: Trigger deploy-script
+        run: ssh -i .github/workflows/id_rsa craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
+
