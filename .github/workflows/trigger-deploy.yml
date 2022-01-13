@@ -37,6 +37,8 @@ jobs:
                 ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
                 echo "${{ secrets.SSH_KEY }}" >> actions_key
                 chmod 600 actions_key
+                ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+                ssh-add actions_key
 
       - name: Trigger deploy-script
         run: ssh -i actions_key craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
