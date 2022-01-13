@@ -39,6 +39,7 @@ jobs:
                 chmod 600 /home/runner/.ssh/id_rsa
                 eval "$(ssh-agent -s)"
                 ssh-add /home/runner/.ssh/id_rsa
+                ls -a /home/runner/.ssh
 
       - name: Trigger deploy-script
         run: ssh craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
