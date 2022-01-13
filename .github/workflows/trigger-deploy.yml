@@ -34,7 +34,7 @@ jobs:
       - name: Add Deployment Server to known_hosts
         run: |
                 mkdir -p /home/runner/.ssh
-                ssh-keyscan alkaid.uberspace.de >> /home/runnder/.ssh/konwn_hosts
+                ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
                 echo "${{ secrets.SSH_KEY }}" >> /home/runner/.ssh/actions_key
                 chmod 600 /home/runner/.ssh/actions_key
                 ssh-agent -a 
