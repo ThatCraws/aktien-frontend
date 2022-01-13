@@ -35,10 +35,9 @@ jobs:
         run: |
                 mkdir -p /home/runner/.ssh
                 ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
-                echo "${{ secrets.SSH_KEY }}" >> actions_key
-                ls -a
+                echo "${{ secrets.SSH_KEY }}" >> actions_key 
                 chmod 600 actions_key
-                ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+                eval 'ssh-agent -s'
                 ssh-add actions_key
 
       - name: Trigger deploy-script
