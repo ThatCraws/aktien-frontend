@@ -1,0 +1,48 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/stock-analysis/dist
+/stock-analysis/tmp
+/stock-analysis/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+/stock-analysis/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/stock-analysis/.angular/cache
+/stock-analysis/.sass-cache
+/stock-analysis/connect.lock
+/stock-analysis/coverage
+/stock-analysis/libpeerconnection.log
+/stock-analysis/npm-debug.log
+/stock-analysis/yarn-error.log
+/stock-analysis/testem.log
+/stock-analysis/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+/stock-analysis/src/app/_core/config/*.ts

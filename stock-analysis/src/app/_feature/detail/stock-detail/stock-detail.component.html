@@ -1,0 +1,72 @@
+<header>
+  <!-- Navbar -->
+  <nav>
+    <!-- Hamburger -->
+    <button
+      (click)="navToggle()"
+      aria-controls="primary-navbar"
+      aria-expanded="false"
+      class="hamburger"
+    >
+      <span class="rectangle top rectangle--small"></span>
+      <span class="rectangle mid"></span>
+      <span class="rectangle bottom rectangle--small"></span>
+    </button>
+    <!-- Menu -->
+    <ul id="primary-navbar" data-visible="false" class="primary-navbar">
+      <li><a href="/" class="Charts">Aktienübersicht</a></li>
+      <li><a href="#Portfolio" class="Portfolio">Portfolio</a></li>
+      <li><a href="#Watchlist" class="Watchlist">Watchlist</a></li>
+    </ul>
+  </nav>
+</header>
+<body>
+  <div class="overview">
+    <!-- Chart -->
+    <div class="chartOverview">
+      <div class="chart">
+        <mat-progress-spinner
+          *ngIf="loading"
+          class="example-margin"
+          [color]="color"
+          [mode]="mode"
+          [value]="value"
+        ></mat-progress-spinner>
+        <canvas
+          *ngIf="chartType == 'financialChart' && !loading"
+          baseChart
+          [data]="financialChartData"
+          [options]="financialChartOptions"
+          [type]="financialChartType"
+          [plugins]="financialChartPlugins"
+        >
+        </canvas>
+        <canvas
+          *ngIf="chartType == 'lineChart' && !loading"
+          baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="lineChartType"
+        >
+        </canvas>
+      </div>
+      <button mat-button (click)="update()">{{ CandleLine }}</button>
+    </div>
+    <!-- Infos -->
+    <div class="infos">
+      <mat-progress-spinner
+        *ngIf="loading"
+        class="example-margin"
+        [color]="color"
+        [mode]="mode"
+        [value]="value"
+      ></mat-progress-spinner>
+      <div *ngIf="!loading">
+        <p>Preis: ${{ price }}</p>
+        <p>Volatilty: {{ volatility }} %</p>
+        <p>RSI: {{ rsi }}</p>
+        <p>Marktkapitalisierung: ${{ marketcap | number: "":"de" }}</p>
+      </div>
+    </div>
+  </div>
+</body>
