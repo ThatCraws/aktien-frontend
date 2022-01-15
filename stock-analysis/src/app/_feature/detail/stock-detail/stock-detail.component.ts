@@ -60,9 +60,14 @@ export class StockDetailComponent implements OnInit {
         this.volatility = result.historicalVolatility;
         
         let boolingBaender: number[] = []
+        let boolingBaenderUp: number[] = []
+        let boolingBaenderLow: number[] = []
         for (let i=0; i < result.data.length; i++) {
           boolingBaender[i] = result.gd[i];
+          boolingBaenderUp[i] = result.upper[i];
+          boolingBaenderLow[i] = result.lower[i];
         }
+
         let dataLine: number[] = [];
         let dataLineLabels: string[] = [];
         for (let i=0; i < result.data.length; i++){
@@ -96,6 +101,14 @@ export class StockDetailComponent implements OnInit {
           {
             label: "mittleres Bollingband",
             data: boolingBaender,
+          },
+          {
+            label: "oberes Bollingband",
+            data: boolingBaenderUp,
+          },
+          {
+            label: "unteres Bollingband",
+            data: boolingBaenderLow,
           }],
           labels: dataLineLabels
         };

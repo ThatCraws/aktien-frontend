@@ -18,4 +18,6 @@ export interface IStock {
   rsi: number
   price: number
   gd: Array<number>
+  upper: Array<number>
+  lower: Array<number>
 }
