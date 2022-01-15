@@ -38,7 +38,7 @@ jobs:
                 eval "$(ssh-agent -s)"
                 ssh-add /home/runner/.ssh/id_rsa
       - name: Check known_hosts
-        run: ls -a ~/.ssh
+        run: cat ~/.ssh/known_hosts
       - name: Trigger deploy-script
         run: ssh -i /home/runner/.ssh/id_rsa craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
 
