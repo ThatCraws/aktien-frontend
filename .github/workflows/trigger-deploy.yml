@@ -8,12 +8,10 @@ on:
   push:
     branches: 
       - main
-      - develop
       - julien-action-deploy
   pull_request:
     branches: 
       - main
-      - develop
       - julien-action-deploy
 
   # Allows you to run this workflow manually from the Actions tab
