@@ -29,7 +29,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Add Deployment Server to known_hosts
+      - name: Add Deployment Server to known_hosts and trigger deploy-script
         run: |
                 mkdir -p /home/runner/.ssh
                 ssh-keyscan alkaid.uberspace.de >> /home/runner/.ssh/konwn_hosts
@@ -37,7 +37,7 @@ jobs:
                 chmod 600 /home/runner/.ssh/id_rsa
                 eval "$(ssh-agent -s)"
                 ssh-add /home/runner/.ssh/id_rsa
-
-      - name: Trigger deploy-script
-        run: ssh -i /home/runner/.ssh/id_rsa craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
+                ssh -i /home/runner/.ssh/id_rsa craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
+      #- name: Trigger deploy-script
+      #  run: ssh -i /home/runner/.ssh/id_rsa craws@alkaid.uberspace.de '~/aktien-frontend/stock-analysis/deploy' 
 
