@@ -59,6 +59,10 @@ export class StockDetailComponent implements OnInit {
         this.rsi = result.rsi;
         this.volatility = result.historicalVolatility;
         
+        let boolingBaender: number[] = []
+        for (let i=0; i < result.data.length; i++) {
+          boolingBaender[i] = result.gd[i];
+        }
         let dataLine: number[] = [];
         let dataLineLabels: string[] = [];
         for (let i=0; i < result.data.length; i++){
@@ -79,13 +83,19 @@ export class StockDetailComponent implements OnInit {
           datasets: [{
             label: result.name,
             data: result.data,
-          }]
+          },
+        ]
         };
+        
 
         this.lineChartData = {
           datasets: [{
             label: result.name,
             data: dataLine,
+          },
+          {
+            label: "mittleres Bollingband",
+            data: boolingBaender,
           }],
           labels: dataLineLabels
         };

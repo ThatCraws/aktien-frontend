@@ -17,4 +17,5 @@ export interface IStock {
   historicalVolatility: number
   rsi: number
   price: number
+  gd: Array<number>
 }
