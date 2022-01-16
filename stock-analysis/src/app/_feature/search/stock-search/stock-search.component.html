@@ -66,9 +66,10 @@
         <p *ngIf="filter.name == 'index'">Index</p>
         <p *ngIf="filter.name == 'country'">Land</p>
         <mat-radio-group [name]="filter.name" (change)="setFilter($event)">
-          <mat-radio-button
+          <mat-radio-button (click)="filterOptionClickListener($event, filter.name)"
             *ngFor="let option of filter.options"
             [value]="option.value"
+            [checked]="uncheckFilter.get(filter.name)"
             >{{ option.name }}
           </mat-radio-button>
         </mat-radio-group>

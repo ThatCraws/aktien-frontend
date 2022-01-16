@@ -34,6 +34,8 @@ export class StockSearchComponent implements OnInit {
   filteredOptions!: Observable<string[]>;
   myForm!: FormGroup;
 
+  uncheckFilter: Map<string, boolean> = new Map<string, boolean>();
+
   constructor(
     private stockService: StockService,
     private filterService: FilterService,
@@ -126,9 +128,9 @@ export class StockSearchComponent implements OnInit {
   }
 
   resetFilter(event: Event, filterName: string): void {
-    event.stopPropagation();
-    event.preventDefault();
-    this.selectedFilter.set(filterName, null);
+    this.selectedFilter.delete(filterName);
+    this.uncheckFilter.set(filterName, false);
+
     this.requstStockData(this.selectedFilter);
   }
 
@@ -148,5 +150,16 @@ export class StockSearchComponent implements OnInit {
 
   getRecord(row: any): void {
     this.router.navigate(['/stock-detail/' + row.stock_id]);
+  }
+
+  /**
+   * Reset the uncheck map value for filter
+   * Needed to uncheck radio buttons
+   * 
+   * @param event 
+   * @param filterName 
+   */
+  filterOptionClickListener(event: Event, filterName: string) {
+        this.uncheckFilter.delete(filterName);
   }
 }
