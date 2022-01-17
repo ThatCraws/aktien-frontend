@@ -50,7 +50,20 @@
         >
         </canvas>
       </div>
-      <button mat-button (click)="update()">{{ CandleLine }}</button>
+      <div>
+          <div class="row-button-wrapper">
+            <button mat-flat-button (click)="update()">{{ CandleLine }}</button>
+          </div>
+      </div>
+      <div>
+        <div class="row-button-wrapper">
+            <button mat-flat-button class="period-button" (click)="requestSpecificStockData('1y', '1d')">1 Jahr</button>
+            <button mat-flat-button class="period-button" (click)="requestSpecificStockData('6mo', '1d')">6 Monate</button>
+            <button mat-flat-button class="period-button" (click)="requestSpecificStockData('3mo', '1d')">3 Monate</button>
+            <button mat-flat-button class="period-button" (click)="requestSpecificStockData('1mo', '1d')">1 Monat</button>
+            <button mat-flat-button class="period-button" (click)="requestSpecificStockData('1d', '5m')">1 Tag</button>
+        </div>
+      </div>
     </div>
     <!-- Infos -->
     <div class="infos">

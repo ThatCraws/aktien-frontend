@@ -107,19 +107,29 @@ body {
       display: flex;
       position: absolute;
       width: 70vw;
-      height: 80vh;
+      height: 85vh;
       border-radius: 10px;
       float: left;
       background-color: var(--secondBackground);
       flex-direction: column;
       .chart {
         padding: 1rem 1rem 1rem 1rem;
+        margin: 0 0 2rem 0;
         width: 70vw;
         height: 70vh;
       }
       mat-progress-spinner {
         position: absolute;
         margin: 35vh 30vw 35vh 30vw;
+      }
+
+      .row-button-wrapper {
+        padding: 0 1rem 1rem 1rem;
+        margin: auto;
+        width: fit-content;
+        .period-button {
+            margin: 0 1rem;
+          }
       }
     }
     button {
@@ -130,7 +140,7 @@ body {
       padding: 1rem 1rem 1rem 1rem;
       position: relative;
       width: 20vw;
-      height: 80vh;
+      height: 85vh;
       margin-left: auto;
       border-radius: 10px;
       background-color: var(--secondBackground);

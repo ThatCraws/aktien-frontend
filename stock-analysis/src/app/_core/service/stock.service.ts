@@ -26,11 +26,11 @@ export class StockService {
     return this.http.get<Array<IStock>>(this.config.BASE_URL + this.URL_STOCK_BASE, {params: httpParams})
   }
 
-  requestStock(stockId: any): Observable<IStock> {
+  requestStock(stockId: any, period: string, interval: string): Observable<IStock> {
     let httpParams = new HttpParams();
 
-    httpParams = httpParams.append('period','1y');
-    httpParams = httpParams.append('interval','1d');
+    httpParams = httpParams.append('period', period);
+    httpParams = httpParams.append('interval', interval);
     return this.http.get<IStock>(this.config.BASE_URL + this.URL_STOCK_BASE + stockId, {params: httpParams})
   }
 }

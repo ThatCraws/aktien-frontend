@@ -51,75 +51,8 @@ export class StockDetailComponent implements OnInit {
         this.stockId = paramMap.get('stock_id');
       }
     )
-    this.stockService.requestStock(this.stockId).subscribe(
-      result => {
-
-        this.price = result.price;
-        this.marketcap = result.market_capitalization;
-        this.rsi = result.rsi;
-        this.volatility = result.historicalVolatility;
-        
-        let boolingBaender: number[] = []
-        let boolingBaenderUp: number[] = []
-        let boolingBaenderLow: number[] = []
-        for (let i=0; i < result.data.length; i++) {
-          boolingBaender[i] = result.gd[i];
-          boolingBaenderUp[i] = result.upper[i];
-          boolingBaenderLow[i] = result.lower[i];
-        }
-
-        let dataLine: number[] = [];
-        let dataLineLabels: string[] = [];
-        for (let i=0; i < result.data.length; i++){
-          dataLine[i] = result.data[i].c;
-
-          let date = new Date(result.data[i].x.substring(0, 10));
-          // let label = date.getDay() + "." + date.getMonth() + "." + date.getFullYear();
-          let label = date.toLocaleString('de').split(',')[0];
-          // dataLineLabels[i] = result.data[i].x;
-          dataLineLabels[i] = label;
-        }
-
-        for (let i=0; i < result.data.length; i++){
-          result.data[i].x = parseISO(result.data[i].x);
-        }
-
-        this.financialChartData = {
-          datasets: [{
-            label: result.name,
-            data: result.data,
-          },
-        ]
-        };
-        
-
-        this.lineChartData = {
-          datasets: [{
-            label: result.name,
-            data: dataLine,
-          },
-          {
-            label: "mittleres Bollingband",
-            data: boolingBaender,
-          },
-          {
-            label: "oberes Bollingband",
-            data: boolingBaenderUp,
-          },
-          {
-            label: "unteres Bollingband",
-            data: boolingBaenderLow,
-          }],
-          labels: dataLineLabels
-        };
-
-        this.loading = false;
-      },
-      error => {
-        null
-      },
-      () => {},
-    );
+    
+    this.requestSpecificStockData('1y', '1d');
   }
 
   public financialChartData: ChartConfiguration['data'] = {
@@ -216,4 +149,78 @@ export class StockDetailComponent implements OnInit {
   };
 
   public lineChartType: ChartType = 'line';
+
+  public requestSpecificStockData(period: string, interval: string): void {
+    this.loading = true;
+
+    this.stockService.requestStock(this.stockId, period, interval).subscribe(
+        result => {
+  
+          this.price = result.price;
+          this.marketcap = result.market_capitalization;
+          this.rsi = result.rsi;
+          this.volatility = result.historicalVolatility;
+          
+          let boolingBaender: number[] = []
+          let boolingBaenderUp: number[] = []
+          let boolingBaenderLow: number[] = []
+          for (let i=0; i < result.data.length; i++) {
+            boolingBaender[i] = result.gd[i];
+            boolingBaenderUp[i] = result.upper[i];
+            boolingBaenderLow[i] = result.lower[i];
+          }
+  
+          let dataLine: number[] = [];
+          let dataLineLabels: string[] = [];
+          for (let i=0; i < result.data.length; i++){
+            dataLine[i] = result.data[i].c;
+  
+            let date = new Date(result.data[i].x.substring(0, 10));
+            // let label = date.getDay() + "." + date.getMonth() + "." + date.getFullYear();
+            let label = date.toLocaleString('de').split(',')[0];
+            // dataLineLabels[i] = result.data[i].x;
+            dataLineLabels[i] = label;
+          }
+  
+          for (let i=0; i < result.data.length; i++){
+            result.data[i].x = parseISO(result.data[i].x);
+          }
+  
+          this.financialChartData = {
+            datasets: [{
+              label: result.name,
+              data: result.data,
+            },
+          ]
+          };
+          
+  
+          this.lineChartData = {
+            datasets: [{
+              label: result.name,
+              data: dataLine,
+            },
+            {
+              label: "mittleres Bollingband",
+              data: boolingBaender,
+            },
+            {
+              label: "oberes Bollingband",
+              data: boolingBaenderUp,
+            },
+            {
+              label: "unteres Bollingband",
+              data: boolingBaenderLow,
+            }],
+            labels: dataLineLabels
+          };
+  
+          this.loading = false;
+        },
+        error => {
+          null
+        },
+        () => {},
+      );
+  }
 }
