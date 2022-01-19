@@ -172,13 +172,17 @@ export class StockDetailComponent implements OnInit {
   
           let dataLine: number[] = [];
           let dataLineLabels: string[] = [];
-          for (let i=0; i < result.data.length; i++){
+          for (let i=0; i < result.data.length; i++) {
             dataLine[i] = result.data[i].c;
   
-            let date = new Date(result.data[i].x.substring(0, 10));
-            // let label = date.getDay() + "." + date.getMonth() + "." + date.getFullYear();
-            let label = date.toLocaleString('de').split(',')[0];
-            // dataLineLabels[i] = result.data[i].x;
+            let label = '';
+            if (period == '1d') {
+                label = result.data[i].x.substring(11, 16);
+            } else {
+                let date = new Date(result.data[i].x.substring(0, 10));
+                label = date.toLocaleString('de').split(',')[0];
+            }
+            
             dataLineLabels[i] = label;
           }
   
