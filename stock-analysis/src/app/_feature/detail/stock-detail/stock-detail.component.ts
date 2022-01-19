@@ -35,6 +35,8 @@ export class StockDetailComponent implements OnInit {
   rsi: number = 0;
   stockId: string | null = null;
   volatility: number = 0;
+  priceEarningRatio: number = 0;
+
   chartType = 'financialChart'
 
   constructor(
@@ -160,6 +162,7 @@ export class StockDetailComponent implements OnInit {
           this.marketcap = result.market_capitalization;
           this.rsi = result.rsi;
           this.volatility = result.historicalVolatility;
+          this.priceEarningRatio = result.price_earning_ratio;
           
           let boolingBaender: number[] = []
           let boolingBaenderUp: number[] = []
