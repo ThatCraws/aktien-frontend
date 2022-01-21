@@ -70,10 +70,12 @@ export class StockDetailComponent implements OnInit {
    * Initialize default financial chart data
    */
   public financialChartData: ChartConfiguration['data'] = {
-    datasets: [ {
-      label: '',
-      data: []
-    } ]
+    datasets: [
+      {
+        label: '',
+        data: []
+      }
+    ]
   };
 
   /**
@@ -147,7 +149,8 @@ export class StockDetailComponent implements OnInit {
         pointHoverBackgroundColor: '',
         pointHoverBorderColor: '',
         fill: 'origin',
-      }]
+      }
+    ]
   }
 
   /**
@@ -182,93 +185,93 @@ export class StockDetailComponent implements OnInit {
     this.loading = true;
 
     this.stockService.requestStock(this.stockId, period, interval).subscribe(
-        result => {
-          // Initialize the financial parameter from response
-          this.price = result.price;
-          this.marketcap = result.market_capitalization;
-          this.rsi = result.rsi;
-          this.volatility = result.historicalVolatility;
-          this.priceEarningRatio = result.price_earning_ratio;
+      result => {
+        // Initialize the financial parameter from response
+        this.price = result.price;
+        this.marketcap = result.market_capitalization;
+        this.rsi = result.rsi;
+        this.volatility = result.historicalVolatility;
+        this.priceEarningRatio = result.price_earning_ratio;
+        
+        // Parse response for Boolinger Baender
+        let boolingBaender: number[] = []
+        let boolingBaenderUp: number[] = []
+        let boolingBaenderLow: number[] = []
+        for (let i=0; i < result.data.length; i++) {
+          boolingBaender[i] = result.gd[i];
+          boolingBaenderUp[i] = result.upper[i];
+          boolingBaenderLow[i] = result.lower[i];
+        }
+
+        // Parse response for line chart
+        let dataLine: number[] = [];
+        let dataLineLabels: string[] = [];
+        for (let i=0; i < result.data.length; i++) {
+          dataLine[i] = result.data[i].c;
+
+          // Format date by time period
+          let label = '';
+          if (period == '1d') {
+            label = result.data[i].x.substring(11, 16);
+          } else {
+            let date = new Date(result.data[i].x.substring(0, 10));
+            label = date.toLocaleString('de').split(',')[0];
+          }
           
-          // Parse response for Boolinger Baender
-          let boolingBaender: number[] = []
-          let boolingBaenderUp: number[] = []
-          let boolingBaenderLow: number[] = []
-          for (let i=0; i < result.data.length; i++) {
-            boolingBaender[i] = result.gd[i];
-            boolingBaenderUp[i] = result.upper[i];
-            boolingBaenderLow[i] = result.lower[i];
-          }
-  
-          // Parse response for line chart
-          let dataLine: number[] = [];
-          let dataLineLabels: string[] = [];
-          for (let i=0; i < result.data.length; i++) {
-            dataLine[i] = result.data[i].c;
-  
-            // Format date by time period
-            let label = '';
-            if (period == '1d') {
-                label = result.data[i].x.substring(11, 16);
-            } else {
-                let date = new Date(result.data[i].x.substring(0, 10));
-                label = date.toLocaleString('de').split(',')[0];
+          dataLineLabels[i] = label;
+        }
+
+        // Parse response for financial chart
+        for (let i=0; i < result.data.length; i++){
+          // Format date
+          result.data[i].x = parseISO(result.data[i].x);
+        }
+
+        // Initialize financial chart with data from response
+        this.financialChartData = {
+          datasets: [
+            {
+              label: result.name,
+              data: result.data,
+            },
+          ]
+        };
+
+        // Initialize line chart with data from response
+        this.lineChartData = {
+          datasets: [
+            {
+              label: result.name,
+              data: dataLine,
+            },
+            {
+              label: "mittleres Bollingband",
+              data: boolingBaender,
+            },
+            {
+              label: "oberes Bollingband",
+              data: boolingBaenderUp,
+            },
+            {
+              label: "unteres Bollingband",
+              data: boolingBaenderLow,
             }
-            
-            dataLineLabels[i] = label;
-          }
-  
-          // Parse response for financial chart
-          for (let i=0; i < result.data.length; i++){
-            // Format date
-            result.data[i].x = parseISO(result.data[i].x);
-          }
-  
-          // Initialize financial chart with data from response
-          this.financialChartData = {
-            datasets: [
-              {
-                label: result.name,
-                data: result.data,
-              },
-            ]
-          };
-  
-          // Initialize line chart with data from response
-          this.lineChartData = {
-            datasets: [
-              {
-                label: result.name,
-                data: dataLine,
-              },
-              {
-                label: "mittleres Bollingband",
-                data: boolingBaender,
-              },
-              {
-                label: "oberes Bollingband",
-                data: boolingBaenderUp,
-              },
-              {
-                label: "unteres Bollingband",
-                data: boolingBaenderLow,
-              }
-            ],
-            labels: dataLineLabels
-          };
-  
-          this.loading = false;
-        },
-        error => {
-          // Error handling
-          this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
-              horizontalPosition: this.horizontalPosition,
-              verticalPosition: this.verticalPosition,
-          });
-  
-          console.log('Aktien Daten für die Aktie ' + this.stockId + ' konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
-        },
-        () => {},
-      );
+          ],
+          labels: dataLineLabels
+        };
+
+        this.loading = false;
+      },
+      error => {
+        // Error handling
+        this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+
+        console.log('Aktien Daten für die Aktie ' + this.stockId + ' konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
+      },
+      () => {},
+    );
   }
 }

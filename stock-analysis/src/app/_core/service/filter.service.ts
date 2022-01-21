@@ -15,7 +15,12 @@ export class FilterService {
     private http: HttpClient
   ) { }
 
-  requestFilters(): Observable<Array<IFilter>> {
+  /**
+   * Request the filter endpoint in the backend
+   * 
+   * @returns Array of filters
+   */
+  public requestFilters(): Observable<Array<IFilter>> {
     return this.http.get<Array<IFilter>>(this.config.BASE_URL + this.URL_FILTER_BASE)
   }
 }
