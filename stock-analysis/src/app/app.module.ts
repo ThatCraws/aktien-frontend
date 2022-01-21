@@ -23,6 +23,7 @@ import {
   PaginatorInternationalizationComponent,
   PaginatorInternationalization,
 } from './shared/model/paginator/paginator-internationalization';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     NgChartsModule,
   ],
   providers: [

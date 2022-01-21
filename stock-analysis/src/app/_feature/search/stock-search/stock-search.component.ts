@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import localeDE from '@angular/common/locales/de';
 import { registerLocaleData } from '@angular/common';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-stock-search',
@@ -36,11 +37,14 @@ export class StockSearchComponent implements OnInit {
 
   uncheckFilter: Map<string, boolean> = new Map<string, boolean>();
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   constructor(
     private stockService: StockService,
     private filterService: FilterService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar
   ) { }
 
   @ViewChild(MatSort)
@@ -59,7 +63,12 @@ export class StockSearchComponent implements OnInit {
         this.filters = result;
       },
       error => {
+        this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+        });
 
+        console.log('Filter Daten konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
       },
       () => { }
     );
@@ -121,7 +130,12 @@ export class StockSearchComponent implements OnInit {
       this.sort.sortChange.emit(sortState);
       },
       error => {
-        null
+        this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+        });
+
+        console.log('Aktien Daten konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
       },
       () => { }
     );

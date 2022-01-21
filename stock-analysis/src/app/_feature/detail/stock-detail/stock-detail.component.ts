@@ -14,7 +14,7 @@ import { de } from 'date-fns/locale';
 import localeDE from '@angular/common/locales/de';
 import { parseISO } from 'date-fns';
 import { CandlestickController, CandlestickElement, OhlcController, OhlcElement } from 'chartjs-chart-financial';
-import { IGraph } from 'src/app/shared/model/graph';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-stock-detail',
@@ -39,9 +39,13 @@ export class StockDetailComponent implements OnInit {
 
   chartType = 'financialChart'
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   constructor(
     private stockService: StockService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     Chart.register(CandlestickController, OhlcController, CandlestickElement, OhlcElement);
   }
@@ -225,7 +229,12 @@ export class StockDetailComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          null
+            this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+            });
+    
+            console.log('Aktien Daten für die Aktie ' + this.stockId + ' konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
         },
         () => {},
       );
