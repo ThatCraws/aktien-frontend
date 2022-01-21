@@ -88,13 +88,14 @@ header {
     margin: 0;
     display: block;
     position: fixed;
-    inset: 0 0 0 75%;
+    inset: 0 0 0 76%;
     flex-direction: column;
     text-align: right;
     align-items: flex-start;
     padding: 10rem 2rem 2rem;
-    background: hsl(0 0% 100% / 0.1);
+    background: var(--secondBackground);
     overflow: hidden;
+    transition: all 0.6s ease-in-out;
   }
 }
 body {
@@ -128,10 +129,10 @@ body {
         margin: auto;
         width: fit-content;
         .period-button {
-            margin: 0 1rem;
+          margin: 0 1rem;
         }
         button {
-            background: var(--buttonsearch);
+          background: var(--buttonsearch);
         }
       }
     }
