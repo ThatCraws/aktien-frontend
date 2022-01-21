@@ -22,23 +22,26 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
   styleUrls: ['./stock-detail.component.less']
 })
 export class StockDetailComponent implements OnInit {
+  stockId: string | null = null;
+
   // Progressbar
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
   loading = true;
 
+  // Chart
   CandleLine: string = "Wechsel zu Linienchart";
+  chartType = 'financialChart';
+
+  // Stock parameters
   price: number = 0;
   marketcap: number = 0;
-  stockName: string = '';
   rsi: number = 0;
-  stockId: string | null = null;
   volatility: number = 0;
   priceEarningRatio: number = 0;
 
-  chartType = 'financialChart'
-
+  // Snackbar properties
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
@@ -52,15 +55,20 @@ export class StockDetailComponent implements OnInit {
   ngOnInit(): void {
     registerLocaleData(localeDE);
 
+    // Parse stock id from route
     this.route.paramMap.subscribe(
       paramMap => {
         this.stockId = paramMap.get('stock_id');
       }
     )
     
+    // Request stock data by default settings
     this.requestSpecificStockData('1y', '1d');
   }
 
+  /**
+   * Initialize default financial chart data
+   */
   public financialChartData: ChartConfiguration['data'] = {
     datasets: [ {
       label: '',
@@ -68,6 +76,9 @@ export class StockDetailComponent implements OnInit {
     } ]
   };
 
+  /**
+   * Initialize default financial chart options
+   */
   public financialChartOptions: ChartConfiguration['options'] = {
     color: '#5f7e97',
     responsive: true,
@@ -89,27 +100,25 @@ export class StockDetailComponent implements OnInit {
     }
   };
 
-  public financialChartColors = [
-    {
-      borderColor: '',
-      backgroundColor: '',
-    },
-  ];
-
+  // Further financial chart options
   public financialChartLegend = true;
   public financialChartType: ChartType = 'candlestick';
   public financialChartPlugins = [];
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  update(): void {
-    // candlestick vs ohlc
-    // this.financialChartType = this.financialChartType === 'candlestick' ? 'ohlc' : 'candlestick';
+  /**
+   * Update chart between financial and line chart
+   */
+  public updateChartType(): void {
     this.chartType = this.chartType === 'financialChart' ? 'lineChart' : 'financialChart';
     this.CandleLine = this.CandleLine === 'Wechsel zu Candlestick' ? 'Wechsel zu Linienchart' : 'Wechsel zu Candlestick';
   }
 
-  navToggle(): void {
+  /**
+   * Toggle sidebar
+   */
+  public navToggle(): void {
     const primaryNav = document.querySelector(".primary-navbar");
     const nav = document.querySelector(".hamburger");
     let visibility = primaryNav!.getAttribute("data-visible");
@@ -123,6 +132,9 @@ export class StockDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * Initialize default line chart data
+   */
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -138,6 +150,9 @@ export class StockDetailComponent implements OnInit {
       }]
   }
 
+  /**
+   * Initialize default line chart options
+   */
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
       line: {
@@ -154,20 +169,28 @@ export class StockDetailComponent implements OnInit {
     }
   };
 
+  // Further line chart options
   public lineChartType: ChartType = 'line';
 
+  /**
+   * Request stock data for the selected stock
+   * 
+   * @param period Time period of historic data
+   * @param interval Time interval of historic data
+   */
   public requestSpecificStockData(period: string, interval: string): void {
     this.loading = true;
 
     this.stockService.requestStock(this.stockId, period, interval).subscribe(
         result => {
-  
+          // Initialize the financial parameter from response
           this.price = result.price;
           this.marketcap = result.market_capitalization;
           this.rsi = result.rsi;
           this.volatility = result.historicalVolatility;
           this.priceEarningRatio = result.price_earning_ratio;
           
+          // Parse response for Boolinger Baender
           let boolingBaender: number[] = []
           let boolingBaenderUp: number[] = []
           let boolingBaenderLow: number[] = []
@@ -177,11 +200,13 @@ export class StockDetailComponent implements OnInit {
             boolingBaenderLow[i] = result.lower[i];
           }
   
+          // Parse response for line chart
           let dataLine: number[] = [];
           let dataLineLabels: string[] = [];
           for (let i=0; i < result.data.length; i++) {
             dataLine[i] = result.data[i].c;
   
+            // Format date by time period
             let label = '';
             if (period == '1d') {
                 label = result.data[i].x.substring(11, 16);
@@ -193,48 +218,55 @@ export class StockDetailComponent implements OnInit {
             dataLineLabels[i] = label;
           }
   
+          // Parse response for financial chart
           for (let i=0; i < result.data.length; i++){
+            // Format date
             result.data[i].x = parseISO(result.data[i].x);
           }
   
+          // Initialize financial chart with data from response
           this.financialChartData = {
-            datasets: [{
-              label: result.name,
-              data: result.data,
-            },
-          ]
+            datasets: [
+              {
+                label: result.name,
+                data: result.data,
+              },
+            ]
           };
-          
   
+          // Initialize line chart with data from response
           this.lineChartData = {
-            datasets: [{
-              label: result.name,
-              data: dataLine,
-            },
-            {
-              label: "mittleres Bollingband",
-              data: boolingBaender,
-            },
-            {
-              label: "oberes Bollingband",
-              data: boolingBaenderUp,
-            },
-            {
-              label: "unteres Bollingband",
-              data: boolingBaenderLow,
-            }],
+            datasets: [
+              {
+                label: result.name,
+                data: dataLine,
+              },
+              {
+                label: "mittleres Bollingband",
+                data: boolingBaender,
+              },
+              {
+                label: "oberes Bollingband",
+                data: boolingBaenderUp,
+              },
+              {
+                label: "unteres Bollingband",
+                data: boolingBaenderLow,
+              }
+            ],
             labels: dataLineLabels
           };
   
           this.loading = false;
         },
         error => {
-            this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
-                horizontalPosition: this.horizontalPosition,
-                verticalPosition: this.verticalPosition,
-            });
-    
-            console.log('Aktien Daten für die Aktie ' + this.stockId + ' konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
+          // Error handling
+          this.snackBar.open('Daten konnten nicht geladen werden.', 'Verstanden', {
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+          });
+  
+          console.log('Aktien Daten für die Aktie ' + this.stockId + ' konnten nicht geladen werden.\nFehlermeldung: ' + error.message);
         },
         () => {},
       );
