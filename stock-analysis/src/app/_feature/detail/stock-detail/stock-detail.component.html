@@ -79,7 +79,7 @@
         <p>Volatilty: {{ volatility | number: "":"de"  }} %</p>
         <p>RSI: {{ rsi | number: "":"de"  }}</p>
         <p>Marktkapitalisierung: ${{ marketcap | number: "":"de" }}</p>
-        <p *ngIf="priceEarningRatio != undefined">Kurs-Gewinn-Verhältis: ${{ priceEarningRatio | number: "":"de" }}</p>
+        <p *ngIf="priceEarningRatio != undefined">Kurs-Gewinn-Verhältis: {{ priceEarningRatio | number: "":"de" }}</p>
       </div>
     </div>
   </div>
