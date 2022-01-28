@@ -1,7 +1,7 @@
 # aktien-frontend
 ## Aktienanalyse Frontend
 
-Eine live-Version dieses Frontends mit seinem [entsprechendem Backend](https://github.com/ThatCraws/aktien-backend/tree/develop) kann unter [craws.uber.space](https://craws.uber.space) gefunden werden.
+Eine live-Version dieses Frontends mit seinem [entsprechendem Backend](https://github.com/ThatCraws/aktien-backend/tree/develop) kann unter [stock-ticker.tk](https://stock-ticker.tk) gefunden werden.
 
 ## Dependencies
 
